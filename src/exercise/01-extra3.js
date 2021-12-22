@@ -4,21 +4,21 @@
 import * as React from 'react'
 
 function countReducer(state, action) {
-  switch (action.type) {
-      case 'INCREMENT':
-          return {count: state.count + action.step}
-      default:
-          return state
+  if (typeof action === 'object') {
+      return action
+  } else {
+      return action(state)
   }
 }
 
 function Counter({initialCount = 0, step = 1}) {
 
-    const [state, dispatch] = React.useReducer(countReducer, {
+    const [state, setState] = React.useReducer(countReducer, {
         count: initialCount,
-      })
+    })
     const {count} = state
-    const increment = () => dispatch({type: 'INCREMENT', step})
+    const increment = () =>
+        setState(currentState => ({count: currentState.count + step}))
   
   return <button onClick={increment}>{count}</button>
 }
