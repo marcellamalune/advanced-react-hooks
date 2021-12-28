@@ -27,7 +27,7 @@ function asyncReducer(state, action) {
   }
 }
 
-function useAsync(asyncCallback, initialState, dependencies) {
+function useAsync(asyncCallback, initialState) {
 
   const [state, dispatch] = React.useReducer(asyncReducer, {
       status: 'idle',
